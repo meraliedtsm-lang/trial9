@@ -1,37 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Wedding RSVP</title>
 <style>
-   body { font-family: Arial, sans-serif; background: #f5e6d3; text-align: center; padding: 40px; }
-   h1 { color: #a67c52; }
-   .guest {
-       margin: 8px;
-       padding: 10px;
-       background: #fffaf3;
-       border-radius: 6px;
-       display: inline-block;
-       cursor: pointer;
-   }
-   .btn {
-       display: inline-block;
-       padding: 10px 20px;
-       margin: 10px;
-       font-size: 18px;
-       border: none;
-       border-radius: 6px;
-       cursor: pointer;
-       background: #a67c52;
-       color: white;
-   }
-   .btn.no {
-       background: #b35c4b;
-   }
+  body {
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(to bottom, #fdf7f0, #f9f1e7);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #5a4634;
+  }
+  h1 {
+      color: #8b5e3c;
+      font-size: 2.7em;
+      margin-top: 30px;
+      font-weight: bold;
+      letter-spacing: 1px;
+  }
+  #guest-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+      padding: 10px;
+  }
+  .guest {
+      margin: 10px;
+      padding: 14px 24px;
+      background: #fffaf3;
+      border-radius: 12px;
+      border: 2px solid #e4c9a2;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .guest:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  }
+  .guest a {
+      text-decoration: none;
+      font-size: 1.2em;
+      color: #8b5e3c;
+      font-weight: bold;
+  }
+  #rsvp-section {
+      margin-top: 50px;
+      background: rgba(255, 250, 243, 0.97);
+      display: inline-block;
+      padding: 35px 40px;
+      border-radius: 18px;
+      border: 2px solid #e4c9a2;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+      max-width: 500px;
+  }
+  #question {
+      font-size: 1.5em;
+      font-style: italic;
+      color: #8b5e3c;
+      margin-bottom: 20px;
+      border-bottom: 2px dashed #e4c9a2;
+      padding-bottom: 12px;
+      line-height: 1.5;
+  }
+  .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      margin: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(to right, #d4a373, #b08968);
+      color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .btn:hover {
+      background: linear-gradient(to right, #b08968, #a67c52);
+      transform: scale(1.05);
+  }
+  .btn.no {
+      background: linear-gradient(to right, #c27b6d, #b35c4b);
+  }
+  .btn.no:hover {
+      background: linear-gradient(to right, #b35c4b, #a04a3b);
+  }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1 id="page-title">Wedding Guest List</h1>
+<h1 id="page-title">💐 Brillmont & Meralie's Wedding Guest List 💐</h1>
 <div id="guest-list">Loading...</div>
 <div id="rsvp-section" style="display:none;">
 <h1 id="question"></h1>
@@ -40,56 +101,52 @@
 </div>
 <script>
 const scriptURL = "https://script.google.com/macros/s/AKfycby0TvoP-HhLgpGxNC7cxIicPTRS6-UTcGjcL4mQX6XdhN89myrM3qQxOsTDLljcfnjEnA/exec";
-const siteBase = "https://meraliedtsm-lang.github.io/merged-rsvp/"; // Change if file name changes
-// Check if link contains a guest name
+const siteBase = "https://meraliedtsm-lang.github.io/trial9/";
 const urlParams = new URLSearchParams(window.location.search);
 const guestName = urlParams.get("name");
 if (guestName) {
-   showRSVP(guestName);
+  showRSVP(guestName);
 } else {
-   // Show list of all guests
-   fetch(scriptURL)
-       .then(res => res.json())
-       .then(guests => {
-           const listDiv = document.getElementById("guest-list");
-           listDiv.innerHTML = "";
-           guests.forEach(name => {
-               const link = `${siteBase}?name=${encodeURIComponent(name)}`;
-               const div = document.createElement("div");
-               div.className = "guest";
-               div.innerHTML = `<a href="${link}">${name}</a>`;
-               listDiv.appendChild(div);
-           });
-       })
-       .catch(err => {
-           document.getElementById("guest-list").textContent = "Error loading guest list.";
-       });
+  fetch(scriptURL)
+      .then(res => res.json())
+      .then(guests => {
+          const listDiv = document.getElementById("guest-list");
+          listDiv.innerHTML = "";
+          guests.forEach(name => {
+              const link = `${siteBase}?name=${encodeURIComponent(name)}`;
+              const div = document.createElement("div");
+              div.className = "guest";
+              div.innerHTML = `<a href="${link}">${name}</a>`;
+              listDiv.appendChild(div);
+          });
+      })
+      .catch(() => {
+          document.getElementById("guest-list").textContent = "Error loading guest list.";
+      });
 }
-// Show RSVP form for selected guest
 function showRSVP(name) {
-   document.getElementById("page-title").style.display = "none";
-   document.getElementById("guest-list").style.display = "none";
-   document.getElementById("question").textContent = `Will you attend Brillmont and Meralie's wedding on December 20, 2025, ${name}?`;
-   document.getElementById("rsvp-section").style.display = "block";
+  document.getElementById("page-title").style.display = "none";
+  document.getElementById("guest-list").style.display = "none";
+  document.getElementById("question").textContent = `💍 Will you attend Brillmont & Meralie's wedding on December 20, 2025, ${name}? 💍`;
+  document.getElementById("rsvp-section").style.display = "block";
 }
-// Submit RSVP response
 function submitRSVP(response) {
-   fetch(scriptURL, {
-       method: "POST",
-       body: JSON.stringify({ name: guestName, response: response })
-   })
-   .then(res => res.json())
-   .then(data => {
-       if (data.status === "success") {
-           document.getElementById("question").textContent = `Thank you, ${guestName}! Your RSVP (${response}) has been saved.`;
-           document.querySelectorAll("#rsvp-section button").forEach(btn => btn.style.display = "none");
-       } else {
-           alert("Error: " + data.message);
-       }
-   })
-   .catch(err => {
-       alert("Error submitting RSVP: " + err);
-   });
+  fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify({ name: guestName, response: response })
+  })
+  .then(res => res.json())
+  .then(data => {
+      if (data.status === "success") {
+          document.getElementById("question").textContent = `Thank you, ${guestName}! Your RSVP (${response}) has been saved.`;
+          document.querySelectorAll("#rsvp-section button").forEach(btn => btn.style.display = "none");
+      } else {
+          alert("Error: " + data.message);
+      }
+  })
+  .catch(err => {
+      alert("Error submitting RSVP: " + err);
+  });
 }
 </script>
 </body>
