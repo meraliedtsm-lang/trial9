@@ -2,190 +2,72 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Wedding RSVP</title>
+<title>Brillmont & Meralie's Wedding Invitation</title>
 <style>
- body {
-     font-family: 'Playfair Display', serif;
-     background: linear-gradient(to bottom, #fdf7f0, #f9f1e7);
-     margin: 0;
-     padding: 0;
-     text-align: center;
-     color: #5a4634;
-     min-height: 100vh;
-     display: flex;
-     flex-direction: column;
- }
- h1 {
-     color: #8b5e3c;
-     font-size: 2.7em;
-     margin-top: 30px;
-     font-weight: bold;
-     letter-spacing: 1px;
- }
- #guest-list {
-     display: flex;
-     flex-wrap: wrap;
-     justify-content: center;
-     margin-top: 30px;
-     gap: 15px;
-     padding: 10px;
- }
- .guest {
-     background: #fffaf3;
-     border-radius: 50px;
-     border: 2px solid #e4c9a2;
-     box-shadow: 0 3px 6px rgba(0,0,0,0.06);
-     padding: 12px 35px;
-     transition: transform 0.25s ease, box-shadow 0.25s ease;
- }
- .guest:hover {
-     transform: scale(1.05);
-     box-shadow: 0 6px 14px rgba(0,0,0,0.12);
- }
- .guest a {
-     text-decoration: none;
-     font-size: 1.2em;
-     color: #8b5e3c;
-     font-weight: bold;
-     display: block;
- }
- #rsvp-section {
-     background: rgba(255, 250, 243, 0.97);
-     padding: 35px 40px;
-     border-radius: 18px;
-     border: 2px solid #e4c9a2;
-     box-shadow: 0 5px 12px rgba(0,0,0,0.1);
-     max-width: 600px;
-     text-align: center;
-     margin: auto;
-     display: none;
-     animation: fadeIn 0.6s ease-in-out;
- }
- #question {
-     font-size: 1.5em;
-     font-style: italic;
-     color: #8b5e3c;
-     margin-bottom: 20px;
-     border-bottom: 2px dashed #e4c9a2;
-     padding-bottom: 12px;
-     line-height: 1.5;
-     text-align: center;
- }
- .btn {
-     display: inline-block;
-     padding: 12px 30px;
-     margin: 15px;
-     font-size: 18px;
-     border: none;
-     border-radius: 50px;
-     cursor: pointer;
-     font-family: 'Playfair Display', serif;
-     background: linear-gradient(to right, #d4a373, #b08968);
-     color: white;
-     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-     transition: background 0.3s ease, transform 0.2s ease;
- }
- .btn:hover {
-     background: linear-gradient(to right, #b08968, #a67c52);
-     transform: scale(1.05);
- }
- .btn.no {
-     background: linear-gradient(to right, #c27b6d, #b35c4b);
- }
- .btn.no:hover {
-     background: linear-gradient(to right, #b35c4b, #a04a3b);
- }
- /* Back link styling */
- .back-link {
-     display: inline-block;
-     margin-top: 20px;
-     text-decoration: none;
-     font-size: 1.1em;
-     color: #8b5e3c;
-     background: #fdf2e6;
-     padding: 8px 15px;
-     border-radius: 20px;
-     border: 1px solid #e4c9a2;
-     transition: all 0.2s ease-in-out;
- }
- .back-link:hover {
-     background: #e4c9a2;
-     color: white;
- }
- @keyframes fadeIn {
-     from { opacity: 0; transform: scale(0.95); }
-     to { opacity: 1; transform: scale(1); }
- }
+   body {
+       font-family: 'Playfair Display', serif;
+       margin: 0;
+       padding: 0;
+       background: linear-gradient(to bottom, #fdf7f0, #f9f1e7);
+       color: #5a4634;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: 100vh;
+   }
+   .invitation {
+       background: #fffaf3;
+       padding: 40px 50px;
+       border-radius: 20px;
+       border: 3px solid #e4c9a2;
+       box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+       text-align: center;
+       max-width: 500px;
+   }
+   .invitation h1 {
+       font-family: 'Great Vibes', cursive;
+       font-size: 3em;
+       color: #8b5e3c;
+       margin-bottom: 10px;
+   }
+   .invitation h2 {
+       font-size: 1.4em;
+       margin-top: 0;
+       font-weight: normal;
+   }
+   .details {
+       margin: 20px 0;
+       font-size: 1.1em;
+       line-height: 1.6;
+   }
+   .rsvp-btn {
+       display: inline-block;
+       padding: 15px 30px;
+       font-size: 1.2em;
+       border-radius: 50px;
+       text-decoration: none;
+       background: linear-gradient(to right, #d4a373, #b08968);
+       color: white;
+       font-weight: bold;
+       transition: background 0.3s ease, transform 0.2s ease;
+   }
+   .rsvp-btn:hover {
+       background: linear-gradient(to right, #b08968, #a67c52);
+       transform: scale(1.05);
+   }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1 id="page-title">💐 Brillmont & Meralie's Wedding Guest List 💐</h1>
-<div id="guest-list">Loading...</div>
-<div id="rsvp-section">
-<h1 id="question"></h1>
-<button class="btn" onclick="submitRSVP('Yes')">Yes</button>
-<button class="btn no" onclick="submitRSVP('No')">No</button>
-<br>
-<a href="#" class="back-link" onclick="goBack(event)">← Back to Guest List</a>
+<div class="invitation">
+<h1>Brillmont & Meralie</h1>
+<h2>are tying the knot!</h2>
+<div class="details">
+<p>💍 You are cordially invited to our wedding 💍</p>
+<p><strong>Date:</strong> December 20, 2025</p>
+<p><strong>Venue:</strong> Paradise Garden Events Pavillion </p>
 </div>
-<script>
-const scriptURL = "https://script.google.com/macros/s/AKfycby0TvoP-HhLgpGxNC7cxIicPTRS6-UTcGjcL4mQX6XdhN89myrM3qQxOsTDLljcfnjEnA/exec";
-const urlParams = new URLSearchParams(window.location.search);
-const guestName = urlParams.get("name");
-if (guestName) {
- showRSVP(guestName);
-} else {
- loadGuestList();
-}
-function loadGuestList() {
- fetch(scriptURL)
-     .then(res => res.json())
-     .then(guests => {
-         const listDiv = document.getElementById("guest-list");
-         listDiv.innerHTML = "";
-         guests.forEach(name => {
-             const div = document.createElement("div");
-             div.className = "guest";
-             div.innerHTML = `<a href="#" onclick="showRSVP('${name}')">${name}</a>`;
-             listDiv.appendChild(div);
-         });
-     })
-     .catch(() => {
-         document.getElementById("guest-list").textContent = "Error loading guest list.";
-     });
-}
-function showRSVP(name) {
- window.currentGuest = name;
- document.getElementById("page-title").style.display = "none";
- document.getElementById("guest-list").style.display = "none";
- document.getElementById("question").textContent = `💍 Will you attend Brillmont & Meralie's wedding on December 20, 2025, ${name}? 💍`;
- document.getElementById("rsvp-section").style.display = "block";
-}
-function goBack(event) {
- event.preventDefault();
- document.getElementById("page-title").style.display = "block";
- document.getElementById("guest-list").style.display = "flex";
- document.getElementById("rsvp-section").style.display = "none";
-}
-function submitRSVP(response) {
- fetch(scriptURL, {
-     method: "POST",
-     body: JSON.stringify({ name: window.currentGuest, response: response })
- })
- .then(res => res.json())
- .then(data => {
-     if (data.status === "success") {
-         document.getElementById("question").textContent = `Thank you, ${window.currentGuest}! Your RSVP (${response}) has been saved.`;
-         document.querySelectorAll("#rsvp-section button").forEach(btn => btn.style.display = "none");
-     } else {
-         alert("Error: " + data.message);
-     }
- })
- .catch(err => {
-     alert("Error submitting RSVP: " + err);
- });
-}
-</script>
+<a href="3.html" class="rsvp-btn">Click Here to RSVP</a>
+</div>
 </body>
 </html>
