@@ -11,6 +11,9 @@
       padding: 0;
       text-align: center;
       color: #5a4634;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
   }
   h1 {
       color: #8b5e3c;
@@ -24,19 +27,19 @@
       flex-wrap: wrap;
       justify-content: center;
       margin-top: 30px;
+      gap: 15px;
       padding: 10px;
   }
   .guest {
-      margin: 10px;
-      padding: 14px 24px;
       background: #fffaf3;
-      border-radius: 12px;
+      border-radius: 50px;
       border: 2px solid #e4c9a2;
       box-shadow: 0 3px 6px rgba(0,0,0,0.06);
+      padding: 12px 35px;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
   .guest:hover {
-      transform: translateY(-3px);
+      transform: scale(1.05);
       box-shadow: 0 6px 14px rgba(0,0,0,0.12);
   }
   .guest a {
@@ -44,17 +47,22 @@
       font-size: 1.2em;
       color: #8b5e3c;
       font-weight: bold;
+      display: block;
   }
+  /* RSVP Section Centered Like a Pop-up */
   #rsvp-section {
-      margin-top: 50px;
       background: rgba(255, 250, 243, 0.97);
-      display: inline-block;
       padding: 35px 40px;
       border-radius: 18px;
       border: 2px solid #e4c9a2;
       box-shadow: 0 5px 12px rgba(0,0,0,0.1);
-      max-width: 500px;
+      max-width: 600px;
+      text-align: center;
+      margin: auto;
+      display: none;
+      animation: fadeIn 0.6s ease-in-out;
   }
+  /* Centered Question Styling */
   #question {
       font-size: 1.5em;
       font-style: italic;
@@ -63,7 +71,9 @@
       border-bottom: 2px dashed #e4c9a2;
       padding-bottom: 12px;
       line-height: 1.5;
+      text-align: center;
   }
+  /* Buttons */
   .btn {
       display: inline-block;
       padding: 12px 30px;
@@ -88,13 +98,18 @@
   .btn.no:hover {
       background: linear-gradient(to right, #b35c4b, #a04a3b);
   }
+  /* Fade-in Animation */
+  @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+  }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <h1 id="page-title">💐 Brillmont & Meralie's Wedding Guest List 💐</h1>
 <div id="guest-list">Loading...</div>
-<div id="rsvp-section" style="display:none;">
+<div id="rsvp-section">
 <h1 id="question"></h1>
 <button class="btn" onclick="submitRSVP('Yes')">Yes</button>
 <button class="btn no" onclick="submitRSVP('No')">No</button>
@@ -128,7 +143,8 @@ function showRSVP(name) {
   document.getElementById("page-title").style.display = "none";
   document.getElementById("guest-list").style.display = "none";
   document.getElementById("question").textContent = `💍 Will you attend Brillmont & Meralie's wedding on December 20, 2025, ${name}? 💍`;
-  document.getElementById("rsvp-section").style.display = "block";
+  const rsvpSection = document.getElementById("rsvp-section");
+  rsvpSection.style.display = "block";
 }
 function submitRSVP(response) {
   fetch(scriptURL, {
