@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Wedding RSVP</title>
+<style>
+   body { font-family: Arial, sans-serif; background: #f5e6d3; text-align: center; padding: 40px; }
+   h1 { color: #a67c52; }
+   .guest {
+       margin: 8px;
+       padding: 10px;
+       background: #fffaf3;
+       border-radius: 6px;
+       display: inline-block;
+       cursor: pointer;
+   }
+   .btn {
+       display: inline-block;
+       padding: 10px 20px;
+       margin: 10px;
+       font-size: 18px;
+       border: none;
+       border-radius: 6px;
+       cursor: pointer;
+       background: #a67c52;
+       color: white;
+   }
+   .btn.no {
+       background: #b35c4b;
+   }
+</style>
+</head>
+<body>
+<h1 id="page-title">Wedding Guest List</h1>
+<div id="guest-list">Loading...</div>
+<div id="rsvp-section" style="display:none;">
+<h1 id="question"></h1>
+<button class="btn" onclick="submitRSVP('Yes')">Yes</button>
+<button class="btn no" onclick="submitRSVP('No')">No</button>
+</div>
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycby0TvoP-HhLgpGxNC7cxIicPTRS6-UTcGjcL4mQX6XdhN89myrM3qQxOsTDLljcfnjEnA/exec";
+const siteBase = "https://meraliedtsm-lang.github.io/trial8/"; // Change if file name changes
+// Check if link contains a guest name
+const urlParams = new URLSearchParams(window.location.search);
+const guestName = urlParams.get("name");
+if (guestName) {
+   showRSVP(guestName);
+} else {
+   // Show list of all guests
+   fetch(scriptURL)
+       .then(res => res.json())
+       .then(guests => {
+           const listDiv = document.getElementById("guest-list");
+           listDiv.innerHTML = "";
+           guests.forEach(name => {
+               const link = `${siteBase}?name=${encodeURIComponent(name)}`;
+               const div = document.createElement("div");
+               div.className = "guest";
+               div.innerHTML = `<a href="${link}">${name}</a>`;
+               listDiv.appendChild(div);
+           });
+       })
+       .catch(err => {
+           document.getElementById("guest-list").textContent = "Error loading guest list.";
+       });
+}
+// Show RSVP form for selected guest
+function showRSVP(name) {
+   document.getElementById("page-title").style.display = "none";
+   document.getElementById("guest-list").style.display = "none";
+   document.getElementById("question").textContent = `Will you attend Brillmont and Meralie's wedding on December 20, 2025?
+   document.getElementById("rsvp-section").style.display = "block";
+}
+// Submit RSVP response
+function submitRSVP(response) {
+   fetch(scriptURL, {
+       method: "POST",
+       body: JSON.stringify({ name: guestName, response: response })
+   })
+   .then(res => res.json())
+   .then(data => {
+       if (data.status === "success") {
+           document.getElementById("question").textContent = `Thank you, ${guestName}! Your RSVP (${response}) has been saved.`;
+           document.querySelectorAll("#rsvp-section button").forEach(btn => btn.style.display = "none");
+       } else {
+           alert("Error: " + data.message);
+       }
+   })
+   .catch(err => {
+       alert("Error submitting RSVP: " + err);
+   });
+}
+</script>
+</body>
+</html>
